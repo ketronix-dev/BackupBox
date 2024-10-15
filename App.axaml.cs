@@ -1,33 +1,45 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
-using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.ThemeManager;
 using MaxBackup.ViewModels;
 using MaxBackup.Views;
 
-namespace MaxBackup;
-
-public partial class App : Application
+namespace MaxBackup
 {
-    public override void Initialize()
+    public partial class App : Application
     {
-        AvaloniaXamlLoader.Load(this);
-    }
-
-    public override void OnFrameworkInitializationCompleted()
-    {
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        public override void Initialize()
         {
-            // Line below is needed to remove Avalonia data validation.
-            // Without this line you will get duplicate validations from both Avalonia and CT
-            BindingPlugins.DataValidators.RemoveAt(0);
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainWindowViewModel(),
-            };
+            AvaloniaXamlLoader.Load(this);
+            // Load the ThemeManager
+            ThemeManager.Initialize();
         }
 
-        base.OnFrameworkInitializationCompleted();
+        public override void OnFrameworkInitializationCompleted()
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                // Load settings and apply theme
+                using (var db = new LiteDatabase(@"AppData.db"))
+                {
+                    var settingsCollection = db.GetCollection<AppSettings>("settings");
+                    var settings = settingsCollection.FindAll().FirstOrDefault();
+                    string initialTheme = settings?.Theme ?? "Light"; // Default to "Light"
+
+                    // Set the initial theme using ThemeManager
+                    ThemeManager.CurrentTheme = initialTheme == "Light"
+                        ? ThemeManager.LightTheme
+                        : ThemeManager.DarkTheme;
+                }
+
+                desktop.MainWindow = new MainWindow
+                {
+                    DataContext = new MainWindowViewModel(),
+                };
+            }
+
+            base.OnFrameworkInitializationCompleted();
+        }
     }
 }
