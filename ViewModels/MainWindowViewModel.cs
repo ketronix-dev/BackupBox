@@ -23,7 +23,6 @@ public partial class MainWindowViewModel : ReactiveObject
     public ObservableCollection<BackupItem> Backups { get; } = new ObservableCollection<BackupItem>();
 
     public ICommand CreateBackup { get; }
-    public ICommand OpenSettingsCommand { get; }
 
     public MainWindowViewModel()
     {
@@ -32,6 +31,7 @@ public partial class MainWindowViewModel : ReactiveObject
             Status = "Status: Backup in progress...";
 
             // File paths
+            
             string sourcePath = @"C:\Users\Drew\Documents\MaxBackup";
 
             // Generate a unique file name based on the ID, date, and time
@@ -64,14 +64,5 @@ public partial class MainWindowViewModel : ReactiveObject
 
             Status = "Status: Waiting";
         });
-
-        OpenSettingsCommand = ReactiveCommand.Create(() =>
-            {
-                var settingsWindow = new SettingsWindow
-                {
-                    DataContext = new SettingsWindowViewModel()
-                };
-                settingsWindow.Show();
-            });
     }
 }
