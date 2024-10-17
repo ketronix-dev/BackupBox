@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace MaxBackup.ViewModels;
+namespace BackupBox.ViewModels;
 
 public class ViewModelBase : ObservableObject
 {

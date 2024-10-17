@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace MaxBackup.Views;
+namespace BackupBox.Views;
 
 public partial class MainWindow : Window
 {

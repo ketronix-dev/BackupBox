@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using MaxBackup.ViewModels;
-using MaxBackup.Views;
+using BackupBox.ViewModels;
+using BackupBox.Views;
 
-namespace MaxBackup;
+namespace BackupBox;
 
 public partial class App : Application
 {
@@ -19,7 +19,7 @@ public partial class App : Application
         {
             // Line below is needed to remove Avalonia data validation.
             // Without this line you will get duplicate validations from both Avalonia and CT
-            
+
             desktop.MainWindow = new MainWindow
             {
                 DataContext = new MainWindowViewModel(),

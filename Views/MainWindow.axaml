@@ -1,19 +1,17 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:MaxBackup.ViewModels"
+        xmlns:vm="using:BackupBox.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="MaxBackup.Views.MainWindow"
+        x:Class="BackupBox.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         MinWidth="800" MinHeight="500"
         MaxWidth="800" MaxHeight="500"
-        Title="MaxBackup">
+        Title="BackupBox">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
@@ -23,19 +21,25 @@
             <ListBox ItemsSource="{Binding Backups}" MaxWidth="550" Margin="20 0 0 0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" /> <!-- Will call the `ToString()` method of BackupItem -->
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding FileName}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding BackupDate}" />
+                            <TextBlock Text="{Binding BackupTime}" />
+                            <TextBlock Text="{Binding FileSizeInMB, StringFormat='Size: {0} MB'}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </DockPanel>
         <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*,*,*">
-            <TextBlock FontFamily="JetBrains Mono" FontSize="35" Text="BackupBox" Grid.Row="0" Margin="10 5"/>
-            <Button Content="Support" Width="150" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" Margin="0 0"/>
-            <Button Content="About" Width="150" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" Margin="0 0"/>
-            <TextBlock Width="200" HorizontalAlignment="Center" FontFamily="Arial" FontSize="15" Text="{Binding Status}" Grid.Row="4" Margin="0 5"/>
-            <TextBlock HorizontalAlignment="Stretch" Width="200" Grid.Row="5" Text="If you think your trade program is not working, try to restore it from the backup." TextWrapping="Wrap" FontSize="13" Margin="0 130 0 0"/>
-            <Button Content="Backup" Command="{Binding CreateBackup}" Width="180" Height="60" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="6"/>
-            <Button Content="Restore" Width="150" Height="40" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="7"/>
+            <TextBlock FontFamily="JetBrains Mono" FontSize="35" HorizontalAlignment="Center" Text="BackupBox" Grid.Row="0" Margin="10 5"/>
+            <Button Content="Support" Command="{Binding OpenSupportCommand}" Width="150" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="1" Margin="0 0"/>
+            <Button Content="About"  Command="{Binding ShowAboutCommand}" Width="150" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" Margin="0 0"/>
+            <TextBlock Width="200" HorizontalAlignment="Stretch" TextAlignment="Center" FontFamily="Arial" FontSize="15" Text="{Binding Status}" Grid.Row="3" Margin="0 5"/>
+            <TextBlock HorizontalAlignment="Stretch" Width="200" Grid.Row="4" Text="If you think your trade program is not working, try to restore it from the backup." TextWrapping="Wrap" FontSize="13" Margin="0 130 0 0"/>
+            <Button Content="Backup" Command="{Binding CreateBackup}" Width="180" Height="60" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="5"/>
+            <Button Content="Restore" Width="150" Height="40" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="6"/>
+            <Button Content="Restore from file" Command="{Binding RestoreFromFileCommand}" Width="180" Height="40" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="7"/>
         </Grid>
     </Grid>
 </Window>
