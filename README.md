@@ -7,6 +7,18 @@ It works on Avalonia, so it should work on Windows, Linux, and MacOS.
 So, if you want to backup your data, you can use this tool.
 
 ---
+### Roadmap
+- [ ] Backup data from HiPOS
+- [x] Backup data from HiMarket
+- [ ] Backup data from Unipro
+- [ ] Restore data to HiPOS
+- [ ] Restore data to HiMarket
+- [ ] Restore data to Unipro
+- [ ] Backup data to cloud storage
+- [ ] Restore data from cloud storage
+- [ ] Send logs to developer
+
+---
 ## How to build
 1. Clone the repository
 2. Open folder in terminal

@@ -18,7 +18,7 @@
     <Grid ColumnDefinitions="550,*">
         <DockPanel Grid.Column="0">
             <TextBlock Margin="20 5" DockPanel.Dock="Top">Backups:</TextBlock>
-            <ListBox ItemsSource="{Binding Backups}" MaxWidth="550" Margin="20 0 0 0">
+            <ListBox ItemsSource="{Binding Backups}" SelectedItem="{Binding SelectedBackup}" MaxWidth="550" Margin="20 0 0 0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
@@ -31,15 +31,15 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </DockPanel>
-        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*,*,*">
+        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,10,60,40,40">
             <TextBlock FontFamily="JetBrains Mono" FontSize="35" HorizontalAlignment="Center" Text="BackupBox" Grid.Row="0" Margin="10 5"/>
             <Button Content="Support" Command="{Binding OpenSupportCommand}" Width="150" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="1" Margin="0 0"/>
-            <Button Content="About"  Command="{Binding ShowAboutCommand}" Width="150" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" Margin="0 0"/>
-            <TextBlock Width="200" HorizontalAlignment="Stretch" TextAlignment="Center" FontFamily="Arial" FontSize="15" Text="{Binding Status}" Grid.Row="3" Margin="0 5"/>
-            <TextBlock HorizontalAlignment="Stretch" Width="200" Grid.Row="4" Text="If you think your trade program is not working, try to restore it from the backup." TextWrapping="Wrap" FontSize="13" Margin="0 130 0 0"/>
-            <Button Content="Backup" Command="{Binding CreateBackup}" Width="180" Height="60" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="5"/>
-            <Button Content="Restore" Width="150" Height="40" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="6"/>
-            <Button Content="Restore from file" Command="{Binding RestoreFromFileCommand}" Width="180" Height="40" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="7"/>
+            <Button Content="About" Command="{Binding ShowAboutCommand}" Width="150" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" Margin="0 0"/>
+            <TextBlock Width="200" HorizontalAlignment="Stretch" TextAlignment="Center" FontFamily="Arial" FontSize="15" Text="{Binding Status}" Grid.Row="3" Margin="0 20 0 0"/>
+            <ProgressBar Value="{Binding BackupProgress}" Minimum="0" Maximum="100" Grid.Row="4" Width="180" Height="20" HorizontalAlignment="Center" Margin="0 0 0 0"/>
+            <Button Content="Backup" Command="{Binding CreateBackup}" Width="180" Height="60" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="5" Margin="0 100 0 0"/>
+            <Button Content="Restore" Command="{Binding RestoreCommand}" Width="150" Height="40" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="6" Margin="0 25 0 0"/>
+            <Button Content="Restore from file" Command="{Binding RestoreFromFileCommand}" Width="180" Height="40" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="7" Margin="0 0 0 0"/>
         </Grid>
     </Grid>
 </Window>
